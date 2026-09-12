@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Zephyr Voice Assistant</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-orb">Z</div>
+        <div>
+          <h1>Zephyr</h1>
+          <p>Voice assistant</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <span id="statusBadge" class="status-badge">Ready</span>
+        <button id="loginButton" class="secondary-button">
+          Log in
+        </button>
+      </div>
+    </header>
+
+    <section class="hero-card">
+      <div class="hero-copy">
+        <span class="eyebrow">PERSONAL AI COMPANION</span>
+        <h2>Speak naturally.<br />Get things done.</h2>
+        <p>
+          Press the microphone and talk to Zephyr. Open websites,
+          save memories, ask questions, or create image prompts.
+        </p>
+
+        <div class="quick-actions">
+          <button data-command="Open YouTube">YouTube</button>
+          <button data-command="Open Gmail">Gmail</button>
+          <button data-command="Open Google Drive">Drive</button>
+          <button data-command="Open Google Calendar">Calendar</button>
+        </div>
+      </div>
+
+      <div class="orb-area">
+        <div id="assistantOrb" class="assistant-orb">
+          <div class="orb-core"></div>
+          <div class="orb-ring ring-one"></div>
+          <div class="orb-ring ring-two"></div>
+        </div>
+
+        <button id="micButton" class="mic-button" aria-label="Start microphone">
+          <span class="mic-icon">●</span>
+          <span id="micLabel">Tap to talk</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel conversation-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">CONVERSATION</span>
+            <h3>What can I help with?</h3>
+          </div>
+          <button id="clearChatButton" class="icon-button" title="Clear conversation">
+            ×
+          </button>
+        </div>
+
+        <div id="messages" class="messages">
+          <div class="message assistant-message">
+            <div class="message-avatar">Z</div>
+            <div>
+              <strong>Zephyr</strong>
+              <p>
+                Hello. Press the microphone and start speaking.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form id="textForm" class="text-form">
+          <input
+            id="textInput"
+            type="text"
+            placeholder="Type a message..."
+            autocomplete="off"
+          />
+          <button type="submit" class="send-button">Send</button>
+        </form>
+      </div>
+
+      <aside class="side-column">
+        <div class="panel control-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">PREFERENCES</span>
+              <h3>Assistant settings</h3>
+            </div>
+          </div>
+
+          <label class="field-label" for="languageSelect">Voice language</label>
+          <select id="languageSelect" class="select-input">
+            <option value="en-US">English</option>
+            <option value="hi-IN">हिन्दी</option>
+            <option value="ur-PK">اردو</option>
+            <option value="ja-JP">日本語</option>
+            <option value="nl-NL">Nederlands</option>
+            <option value="fr-FR">Français</option>
+            <option value="de-DE">Deutsch</option>
+            <option value="es-ES">Español</option>
+            <option value="it-IT">Italiano</option>
+            <option value="pt-PT">Português</option>
+            <option value="ko-KR">한국어</option>
+            <option value="zh-CN">中文</option>
+          </select>
+
+          <div class="setting-row">
+            <div>
+              <strong>Speak responses</strong>
+              <small>Read replies aloud</small>
+            </div>
+            <label class="switch">
+              <input id="speakToggle" type="checkbox" checked />
+              <span></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <strong>Memory</strong>
+              <small>Stored locally in this browser</small>
+            </div>
+            <button id="clearMemoryButton" class="small-button">
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="panel memory-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">MEMORY</span>
+              <h3>Things about you</h3>
+            </div>
+          </div>
+
+          <p class="panel-description">
+            Say "remember that I like jazz" to save a preference.
+          </p>
+
+          <div id="memoryList" class="memory-list">
+            <div class="empty-memory">No memories saved yet.</div>
+          </div>
+        </div>
+
+        <div class="panel image-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">CREATIVE STUDIO</span>
+              <h3>Generate an image</h3>
+            </div>
+          </div>
+
+          <textarea
+            id="imagePrompt"
+            placeholder="Describe the image you want..."
+          ></textarea>
+
+          <button id="generateImageButton" class="primary-button">
+            Generate image
+          </button>
+
+          <div id="imageResult" class="image-result">
+            Your generated image will appear here.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <span>Zephyr Assistant</span>
+      <span>Microphone access requires HTTPS or localhost.</span>
+    </footer>
+  </main>
+
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeLoginButton" class="modal-close">×</button>
+      <span class="eyebrow">WELCOME BACK</span>
+      <h2>Log in to Zephyr</h2>
+      <p>
+        This demo stores login state locally. Production login requires
+        a backend and OAuth provider.
+      </p>
+
+      <input id="emailInput" type="email" placeholder="Email address" />
+      <input id="passwordInput" type="password" placeholder="Password" />
+      <button id="demoLoginButton" class="primary-button">
+        Continue
+      </button>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
